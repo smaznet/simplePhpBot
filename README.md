@@ -1,5 +1,10 @@
 # simplePhpBot
-A Simple `PHP` bot Framework
+A Simple `PHP` bot Helper
+also you can [PWRTelegram](pwrtelegram.xyz) methods by
+```php 
+$Tl->enablePWRT(); 
+
+```
 
 
 # Example : 
