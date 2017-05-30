@@ -8,7 +8,7 @@
  */
 class InlineKeyBoardMarkUp
 {
-    public static function build(bool $needBackBtn,array $keyboard,$resize_keyboard=true,$one_time_keyboard=false,$selective=false)
+    public static function build( $needBackBtn, $keyboard,$resize_keyboard=true,$one_time_keyboard=false,$selective=false)
     {
         if ($needBackBtn){
             $keyboard=array_merge($keyboard,[[KeyBoardItem::build("بازگشت به منوی اصلی","back",0)]]);
