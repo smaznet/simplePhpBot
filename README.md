@@ -12,7 +12,7 @@ $Tl->enablePWRT();
 $data=json_decode(file_get_contents("php://input"));
 require ("Utils.php");
 require ("telegramhelper.php");
-$TL=new telegramhelper("363256212:YourBotTokenHere");
+$TL=new telegramhelper("YourBotTokenHere");
 /*
 Something removed from example
 
