@@ -1,3 +1,4 @@
+[![StyleCI](https://styleci.io/repos/90044595/shield?branch=master)](https://styleci.io/repos/90044595)
 # simplePhpBot
 A Simple `PHP` bot Helper
 also you can [PWRTelegram](pwrtelegram.xyz) methods by
