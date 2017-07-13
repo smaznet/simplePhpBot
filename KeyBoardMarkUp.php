@@ -15,8 +15,8 @@ class KeyBoardMarkUp
         }
 
         return ['keyboard' => $keyboard,
-'resize_keyboard'  => $resize_keyboard,
-'one_time_keyboard'=> $one_time_keyboard,
-'selective'        => $selective, ];
+'resize_keyboard'          => $resize_keyboard,
+'one_time_keyboard'        => $one_time_keyboard,
+'selective'                => $selective, ];
     }
 }
