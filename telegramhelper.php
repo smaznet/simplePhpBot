@@ -188,7 +188,29 @@ class telegramhelper
     {
         return $this->makeHTTPRequest('sendMessage', $content);
     }
+public static function parseUpdate($update, $parent_name = "", $level = 1)
+    {
+        global $C;
+        if (is_null($C)) $C = new stdClass();
+        foreach (get_object_vars($update) as $var => $val) {
+            if ($val instanceof stdClass) {
+                if ($level >= 2) {
+                    self::parseUpdate($val, $parent_name . "$var" . '_', $level + 1);
+                } else {
+                    self::parseUpdate($val, '', $level + 1);
+                }
+                continue;
+            }
+            $arr = explode("_", $parent_name . $var);
+            $varName = '';
+            foreach ($arr as $name) {
+                $varName .= ucfirst($name);
+            }
+            global $$varName;
+            $$varName = $val;
+        }
 
+    }
     public function isInChannel($userid, $channel)
     {
         $responseTl = $this->makeHTTPRequest('getChatMember', ['chat_id' => $channel, 'user_id' => $userid]);
