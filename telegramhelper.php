@@ -114,36 +114,40 @@ class telegramhelper
            return json_decode($res, true);
         }
     }
-  public function forwardMessageWithoutHeader($messageorg, $targetChatId, $reply_markUp = null)
+
+    public function forwardMessageWithoutHeader($messageorg, $targetChatId, $reply_markUp = null)
     {
         $message = $messageorg;
-        $arr = ['audio', 'document', 'game', 'photo', 'sticker', 'video', 'voice','video_note'];
+        $arr = ['audio', 'document', 'game', 'photo', 'sticker', 'video', 'voice', 'video_note'];
         if (isset($message->text)) {
             $sendData = ['chat_id' => $targetChatId, 'text' => $message->text];
             if (!empty($reply_markUp)) {
                 $sendData['reply_markup'] = $reply_markUp;
             }
+
             return $this->senMessage($sendData);
         }
         foreach ($arr as $method) {
-            if (isset($message->{$method})){
-                if ($method == "photo") {
+            if (isset($message->{$method})) {
+                if ($method == 'photo') {
                     $message->photo = end($message->photo);
                 }
                 $sendData = ['chat_id' => $targetChatId,
-                    $method => $message->{$method}->file_id ];
+                    $method            => $message->{$method}->file_id, ];
                 if (!empty($reply_markUp)) {
                     $sendData['reply_markup'] = $reply_markUp;
                 }
-                if (isset($message->caption)){
+                if (isset($message->caption)) {
                     $sendData['caption'] = $message->caption;
                 }
-                 if ($method=="video_note"){
-                    $method="videoNote";
+                if ($method == 'video_note') {
+                    $method = 'videoNote';
                 }
-                return $this->makeHTTPRequest('send' . ucfirst($method), $sendData);
+
+                return $this->makeHTTPRequest('send'.ucfirst($method), $sendData);
             }
         }
+
         return false;
     }
 
