@@ -138,7 +138,9 @@ class telegramhelper
                 if (isset($message->caption)){
                     $sendData['caption'] = $message->caption;
                 }
-
+                 if ($method=="video_note"){
+                    $method="videoNote";
+                }
                 return $this->makeHTTPRequest('send' . ucfirst($method), $sendData);
             }
         }
