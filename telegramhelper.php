@@ -114,33 +114,35 @@ class telegramhelper
            return json_decode($res, true);
         }
     }
-
-    public function forwardMessageWithoutHeader($message, $targetChatId, $reply_markUp = null)
+  public function forwardMessageWithoutHeader($messageorg, $targetChatId, $reply_markUp = null)
     {
-        $arr = ['audio', 'document', 'game', 'photo', 'sticker', 'video', 'voice'];
-
+        $message = $messageorg;
+        $arr = ['audio', 'document', 'game', 'photo', 'sticker', 'video', 'voice','video_note'];
         if (isset($message->text)) {
-            $sendData = ['chat_id'=>$targetChatId, 'text'=>$message->text];
+            $sendData = ['chat_id' => $targetChatId, 'text' => $message->text];
             if (!empty($reply_markUp)) {
                 $sendData['reply_markup'] = $reply_markUp;
             }
-
             return $this->senMessage($sendData);
         }
         foreach ($arr as $method) {
-            if ($method == 'photo') {
-                $message->photo = $message->photo[count($message->photo) - 1];
-            }
-            $sendData = ['chat_id'=> $targetChatId,
-                $method           => $message->{$method}->file_id,
-                'caption'         => $message->caption, ];
-            if (!empty($reply_markUp)) {
-                $sendData['reply_markup'] = $reply_markUp;
-            }
-            if (isset($message->{$method})) {
-                return $this->makeHTTPRequest('send'.ucfirst($method), $sendData);
+            if (isset($message->{$method})){
+                if ($method == "photo") {
+                    $message->photo = end($message->photo);
+                }
+                $sendData = ['chat_id' => $targetChatId,
+                    $method => $message->{$method}->file_id ];
+                if (!empty($reply_markUp)) {
+                    $sendData['reply_markup'] = $reply_markUp;
+                }
+                if (isset($message->caption)){
+                    $sendData['caption'] = $message->caption;
+                }
+
+                return $this->makeHTTPRequest('send' . ucfirst($method), $sendData);
             }
         }
+        return false;
     }
 
     public function sendMediaByContent($media, $content, $data, $fileName = null, $progress = false)
