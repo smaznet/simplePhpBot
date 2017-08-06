@@ -221,12 +221,15 @@ class telegramhelper
             $$varName = $val;
         }
     }
+
     public function getFileUrlByID($file_id)
     {
         $response = $this->makeHTTPRequest('getFile', ['file_id' => $file_id]);
         $url = $this->fileUrl($response['result']['file_path']);
+
         return $url;
     }
+
     public function isInChannel($userid, $channel)
     {
         $responseTl = $this->makeHTTPRequest('getChatMember', ['chat_id' => $channel, 'user_id' => $userid]);
