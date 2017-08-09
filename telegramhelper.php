@@ -248,8 +248,9 @@ class telegramhelper
         return $this->makeHTTPRequest('answerCallbackQuery', ['callback_query_id'=>$cid, 'text'=>$text, 'show_alert'=>$notfi]);
     }
 
-    public function api(BaseMethod $baseMethod)
+    public function sendMessage($chat_id, $text, $reply_markup = null,$parse_mode=null,$reply_to_message_id=null)
     {
-        return $this->makeHTTPRequest(get_class($baseMethod), $baseMethod->buildParams());
+        return $this->senMessage(['chat_id' => $chat_id, 'text' => $text, 'reply_markup' => $reply_markup,
+            'parse_mode'=>$parse_mode,'reply_to_message_id'=>$reply_to_message_id]);
     }
 }
